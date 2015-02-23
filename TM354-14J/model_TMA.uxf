@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.1">
+  <help_text>title:rr Hotline
+Start
+Telephone\     rings
+While[open\calls]
+	[free]
+	Fork
+		If
+			[responsible]
+			take call
+			help caller
+
+			[not responsible]
+			forward call\(with subactions)..
+		EndIf
+
+		|
+		|
+		|
+		document call~id1
+	Sync
+
+	[busy]
+	record\call
+	wait until\   free&gt;
+	&gt;free
+	playback\recorded cal-&gt;id1
+[no open calls]
+End
+
+</help_text>
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.baselet.element.old.allinone.ActivityDiagramText</type>
+    <coordinates>
+      <x>0</x>
+      <y>0</y>
+      <w>1757</w>
+      <h>1662</h>
+    </coordinates>
+    <panel_attributes>title:returning an item
+Start
+Good obtained
+If
+	[Goods faulty or unsuitable]
+	User logs into the system
+	User select the returns facility		
+	The system will ask the shopper to provide the unique order number. 
+	If
+		[provided number is invalid]
+		Fork
+			Inform shopper
+			
+			Cancel the return procedure
+		Sync		
+				
+		[number is valid]
+		Fork
+			Shopper specifies item to return
+			
+			Specify reason.
+			[no more than 256 characters]
+		Sync 
+		User asked to confirm return of item
+		The user provides a response
+		If
+			[confirm return item]					
+			Fork
+				System generates a unique return number
+				Communicates it to the shopper online.				
+				
+				Send email confirming the return number
+			Sync 
+			Shopper returns the item 
+			[to same depot they collected it from quoting the return number.]
+			A depot assistant records the return		
+			Fork
+				Credits the customer’s card account with the amount of the item, 
+			
+				a refund note is emailed to the customer.
+			Sync
+										
+			[cancel the return procedure]
+			Cancel the return procedure
+			
+		EndIf
+	EndIf	
+	
+	[Goods OK]
+	Cancel the return procedure
+EndIf
+End
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
